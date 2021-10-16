@@ -1,11 +1,31 @@
 import {RouteRecordRaw} from 'vue-router';
-// import TodoList from '../components/TodoList/';
 
 const routes: RouteRecordRaw[] = [
     {
-        path: "/vue-samples/todo-list",
-        component: () => import('@/components/TodoList/index.vue'),
-    }
-]
+        path: '/',
+        redirect: '/home'
+    },
+    {
+        path: '/home',
+        component: () => import('@/pages/HomePage.vue'),
+        redirect: '/home/samples',
+        children: [
+            {
+                path: 'samples',
+                component: () => import('@/pages/SamplesPage/index.vue'),
+                children: [
+                    {
+                        path: 'data-bindings',
+                        component: () => import('@/pages/DataBinding/index.vue')
+                    },
+                    {
+                        path: 'todos',
+                        component: () => import('@/pages/TodoListPage.vue')
+                    }
+                ]
+            }
+        ]
+    },
+];
 
 export default routes;

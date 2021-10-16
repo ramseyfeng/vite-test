@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script src="a6.mjs" type="module">
+</script>
+<script type="module">
+    import {name} from "./a6.mjs";
+    console.log(name + 'ac');
+    const a = 'a';
+    console.log(a);
+</script>
+
+<script type="module">
+    let i = 0;
+    for (; i < 1000000000; i++) {
+    }
+    // ESM的script标签会延迟执行脚本，不会阻塞页面显然；
+    // console.log(a);
+    // ESM 自动采用严格模式， 无需 use strict; 每个ESM模块都是单独的私有作用域
+    // console.log(this);
+    // ESM是通过CORS去请求外部JS模块的；
+    console.log(i);
+</script>
+
+<button>页面正常加载</button>
+</body>
+</html>
