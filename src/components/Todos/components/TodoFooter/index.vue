@@ -8,6 +8,9 @@
 export default {
   name: "TodoFooter",
   setup(props, ctx) {
+    /**
+     * points: defineEmits那些方法只在setup syntax里才能使用
+     */
     function deleteAllCompleted() {
       ctx.emit('deleteDones');
     }

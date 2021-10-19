@@ -10,31 +10,39 @@
 </template>
 
 <script setup lang="ts">
-import {Todo} from "../../models/TodoList";
 import TodoHeader from "./components/TodoHeader/index.vue"
 import TodoTable from "./components/TodoTable/index.vue"
 
-import {reactive, watch} from "vue";
+import {onMounted, reactive, toRefs, watch} from "vue";
 import {nanoid} from "nanoid";
 import {ElMessage} from "element-plus";
+import {Todo} from "@/models/TodoList";
 
-let storedTodos = JSON.parse(localStorage.getItem('SAMPLE_TODOS') || '[]');
-let todos: Todo[] = reactive(storedTodos);
+onMounted(() => {
+  state.todos = JSON.parse(localStorage.getItem('SAMPLE_TODOS') || '[]');
+})
+
+/**
+ * point: 在最外层套个state,避免todos整体替换无法检测的问题(e.g. todos = todos.filter(...))
+ */
+let state = reactive<{ todos: Todo[] }>({
+  todos: []
+});
 
 function addTodo(name) {
-  if (todos.find(td => td.name === name)) {
+  if (state.todos.find(td => td.name === name)) {
     ElMessage.error(`已经有过一个"${name}"`);
     return;
   }
-  todos.unshift({
+  state.todos.unshift({
     id: nanoid(),
     name,
-    done: true
+    done: false
   })
 }
 
 function updateTodo(id: string, name: string) {
-  const todo = todos.find(td => td.id === id);
+  const todo = state.todos.find(td => td.id === id);
   if (todo) {
     todo.name = name;
     todo.editMode = false;
@@ -43,7 +51,7 @@ function updateTodo(id: string, name: string) {
 
 function updateTodoSelection(selection) {
   const ids = selection.map(sel => sel.id);
-  todos.forEach(td => {
+  state.todos.forEach(td => {
     if (td.done !== ids.includes(td.id)) {
       td.done = ids.includes(td.id);
     }
@@ -51,22 +59,26 @@ function updateTodoSelection(selection) {
 }
 
 function deleteTodo(id: string) {
-  todos.splice(todos.findIndex(td => td.id === id), 1);
+  state.todos.splice(state.todos.findIndex(td => td.id === id), 1);
 }
 
 function deleteDones() {
   // Todo: Update needed
-  todos = todos.filter(td => td.done === false);
-  console.log(todos);
+  state.todos = state.todos.filter(td => td.done === false);
 }
 
-watch(todos, (pre, cur) => {
+watch(() => state.todos, (pre, cur) => {
   localStorage.setItem('SAMPLE_TODOS', JSON.stringify(cur));
-});
+}, {deep: true});
 
 function tstMsg() {
   ElMessage.error('Oops, this is a error message.')
 }
+
+/**
+ * points: toRefs可以减少页面对象访问层级
+  */
+const {todos} = toRefs(state);
 
 </script>
 
