@@ -1,6 +1,6 @@
 <template>
-  <el-container class="h-full">
-    <el-header class="bg-green-300">Header</el-header>
+  <div class="h-full flex flex-col">
+    <HeaderMenu></HeaderMenu>
     <el-container>
       <el-aside width="200px">
         <el-menu router
@@ -46,12 +46,15 @@
         <router-view></router-view>
       </el-main>
     </el-container>
-  </el-container>
+  </div>
 </template>
 
 <script>
+import HeaderMenu from "../components/HeaderMenu";
+
 export default {
-  name: "HomePage"
+  name: "HomePage",
+  components: {HeaderMenu}
 }
 </script>
 

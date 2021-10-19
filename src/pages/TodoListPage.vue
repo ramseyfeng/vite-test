@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import TodoList from "../components/TodoList";
+import TodoList from "../components/Todos";
 </script>
 
 <style scoped>

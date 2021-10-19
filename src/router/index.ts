@@ -1,4 +1,10 @@
-import {RouteRecordRaw} from 'vue-router';
+import {createRouter, createWebHashHistory, RouteRecordRaw} from 'vue-router';
+import {LOGIN_TOKEN} from "@/constants/login";
+
+const excludePaths = [
+    '/login',
+    '/register'
+];
 
 const routes: RouteRecordRaw[] = [
     {
@@ -26,6 +32,32 @@ const routes: RouteRecordRaw[] = [
             }
         ]
     },
+    {
+        path: '/login',
+        component: () => import('@/pages/Login/index.vue')
+    },
+    {
+        path: '/register',
+        component: () => import('@/pages/Register/index.vue')
+    }
 ];
 
-export default routes;
+const router = createRouter({
+    // 4. 内部提供了 history 模式的实现。为了简单起见，我们在这里使用 hash 模式。
+    history: createWebHashHistory(),
+    routes, // `routes: routes` 的缩写
+});
+
+router.beforeEach((to, from, next) => {
+    if (excludePaths.includes(to.path)) {
+        next();
+        return;
+    }
+    if (localStorage.getItem(LOGIN_TOKEN)) {
+        next();
+    } else {
+        next('/login');
+    }
+});
+
+export default router;
