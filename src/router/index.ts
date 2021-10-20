@@ -17,13 +17,21 @@ const routes: RouteRecordRaw[] = [
         redirect: '/home/samples',
         children: [
             {
-                path: 'samples',
-                component: () => import('@/pages/SamplesPage/index.vue'),
+                path: 'knowledge',
+                component: () => import('@/pages/KnowledgePage/index.vue'),
+                redirect: '/home/samples/knowledge/data-bindings',
                 children: [
                     {
                         path: 'data-bindings',
                         component: () => import('@/pages/DataBinding/index.vue')
-                    },
+                    }
+                ]
+            },
+            {
+                path: 'samples',
+                component: () => import('@/pages/SamplesPage/index.vue'),
+                redirect: '/home/samples/todos',
+                children: [
                     {
                         path: 'todos',
                         component: () => import('@/pages/TodoListPage.vue')
