@@ -1,7 +1,7 @@
 <template>
   <div class="card">
-    <TodoHeader @add-todo="addTodo"></TodoHeader>
-    <TodoTable :todos="todos"
+    <TodoHeader @add-todo="addTodo" @search-todo="searchTodo"></TodoHeader>
+    <TodoTable :todos="todos" :searchText="searchText"
                @update-todo="updateTodo"
                @delete-todo="deleteTodo"
                @update-todo-selection="updateTodoSelection"></TodoTable>
@@ -13,14 +13,13 @@
 import TodoHeader from "./components/TodoHeader/index.vue"
 import TodoTable from "./components/TodoTable/index.vue"
 
-import {onMounted, reactive, toRefs, watch} from "vue";
+import {computed, onMounted, provide, reactive, ref, toRefs, watch} from "vue";
 import {nanoid} from "nanoid";
 import {ElMessage} from "element-plus";
 import {Todo} from "@/models/TodoList";
 
-onMounted(() => {
-  state.todos = JSON.parse(localStorage.getItem('SAMPLE_TODOS') || '[]');
-})
+/*onMounted(() => {
+})*/
 
 /**
  * point: 在最外层套个state,避免todos整体替换无法检测的问题(e.g. todos = todos.filter(...))
@@ -28,6 +27,7 @@ onMounted(() => {
 let state = reactive<{ todos: Todo[] }>({
   todos: []
 });
+state.todos = JSON.parse(localStorage.getItem('SAMPLE_TODOS') || '[]');
 
 function addTodo(name) {
   if (state.todos.find(td => td.name === name)) {
@@ -56,10 +56,18 @@ function updateTodoSelection(selection) {
       td.done = ids.includes(td.id);
     }
   });
+  console.log(state.todos);
 }
+
+let searchText = ref('');
 
 function deleteTodo(id: string) {
   state.todos.splice(state.todos.findIndex(td => td.id === id), 1);
+}
+
+function searchTodo(value) {
+  console.log(value);
+  searchText.value = value
 }
 
 function deleteDones() {
@@ -71,14 +79,21 @@ watch(() => state.todos, (pre, cur) => {
   localStorage.setItem('SAMPLE_TODOS', JSON.stringify(cur));
 }, {deep: true});
 
-function tstMsg() {
-  ElMessage.error('Oops, this is a error message.')
-}
-
 /**
  * points: toRefs可以减少页面对象访问层级
-  */
+ */
 const {todos} = toRefs(state);
+
+console.log(todos);
+
+/**
+ * points: 在我们的例子中，如果我们想对祖先组件中的更改做出响应，
+ * 我们需要为 provide 的 todoLength 分配一个组合式 API computed property
+ * 或者传入一个ref/reactive的对象也可以?
+ */
+provide('todosState', {
+  todosLength: computed(() => state.todos.filter(td => td.done).length)
+})
 
 </script>
 

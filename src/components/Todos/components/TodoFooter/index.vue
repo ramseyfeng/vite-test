@@ -1,10 +1,12 @@
 <template>
   <div class="flex py-6">
-    <el-button type="danger" size="medium" @click="deleteAllCompleted">删除已经完成</el-button>
+    <el-button type="danger" size="medium" @click="deleteAllCompleted">删除已经完成 {{todosLength}}</el-button>
   </div>
 </template>
 
 <script>
+import {inject} from "vue";
+
 export default {
   name: "TodoFooter",
   setup(props, ctx) {
@@ -14,8 +16,12 @@ export default {
     function deleteAllCompleted() {
       ctx.emit('deleteDones');
     }
+
+    const todosLength = inject('todosState').todosLength
+
     return {
-      deleteAllCompleted
+      deleteAllCompleted,
+      todosLength
     }
   }
 }

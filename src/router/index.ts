@@ -24,6 +24,10 @@ const routes: RouteRecordRaw[] = [
                     {
                         path: 'data-bindings',
                         component: () => import('@/pages/DataBinding/index.vue')
+                    },
+                    {
+                        path: 'v-model',
+                        component: () => import('@/pages/VModelPage/index.vue')
                     }
                 ]
             },

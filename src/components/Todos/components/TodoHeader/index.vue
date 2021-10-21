@@ -5,15 +5,16 @@
       <el-button type="primary" @click="$emit('addTodo', newTodo.name)">添加</el-button>
     </div>
     <div class="w-1/3">
-      <el-input v-model="search" placeholder="查找"></el-input>
+      <el-input v-model="searchText" placeholder="查找" @keyup="search"></el-input>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import {reactive} from "vue";
+import {reactive, ref} from "vue";
 
-defineEmits(['addTodo'])
+const searchText = ref('');
+const emits = defineEmits(['addTodo', 'searchTodo'])
 
 // const inputRef = ref();
 //
@@ -24,6 +25,12 @@ defineEmits(['addTodo'])
 let newTodo = reactive({
   name: null
 });
+
+
+
+function search() {
+  emits('searchTodo', searchText.value);
+}
 </script>
 
 <style scoped>

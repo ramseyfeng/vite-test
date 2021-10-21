@@ -36,6 +36,10 @@ const menus: MenuItem[] = [
       {
         link: routes.knowledge.DATA_BINDING,
         label: 'Data Bindings',
+      },
+      {
+        link: routes.knowledge.V_MODEL,
+        label: 'V-model',
       }
     ]
   },
