@@ -13,13 +13,10 @@
 import TodoHeader from "./components/TodoHeader/index.vue"
 import TodoTable from "./components/TodoTable/index.vue"
 
-import {computed, onMounted, provide, reactive, ref, toRefs, watch} from "vue";
+import {computed, provide, reactive, ref, toRefs, watch} from "vue";
 import {nanoid} from "nanoid";
 import {ElMessage} from "element-plus";
 import {Todo} from "@/models/TodoList";
-
-/*onMounted(() => {
-})*/
 
 /**
  * point: 在最外层套个state,避免todos整体替换无法检测的问题(e.g. todos = todos.filter(...))
@@ -29,7 +26,7 @@ let state = reactive<{ todos: Todo[] }>({
 });
 state.todos = JSON.parse(localStorage.getItem('SAMPLE_TODOS') || '[]');
 
-function addTodo(name) {
+function addTodo(name: string) {
   if (state.todos.find(td => td.name === name)) {
     ElMessage.error(`已经有过一个"${name}"`);
     return;

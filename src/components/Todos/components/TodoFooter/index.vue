@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import {inject} from "vue";
 
 export default {
@@ -13,11 +13,13 @@ export default {
     /**
      * points: defineEmits那些方法只在setup syntax里才能使用
      */
-    function deleteAllCompleted() {
+   function deleteAllCompleted() {
       ctx.emit('deleteDones');
     }
 
-    const todosLength = inject('todosState').todosLength
+    const todosLength = inject<{
+      todosLength: number;
+    }>('todosState')!.todosLength
 
     return {
       deleteAllCompleted,

@@ -40,6 +40,9 @@ const menus: MenuItem[] = [
       {
         link: routes.knowledge.V_MODEL,
         label: 'V-model',
+      }, {
+        link: routes.knowledge.LIFE_CYCLE,
+        label: '生命周期例子'
       }
     ]
   },

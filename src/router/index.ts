@@ -28,7 +28,11 @@ const routes: RouteRecordRaw[] = [
                     {
                         path: 'v-model',
                         component: () => import('@/pages/VModelPage/index.vue')
-                    }
+                    },
+                    {
+                        path: 'life-cycle',
+                        component: () => import('@/pages/LifeCyclePage/index.vue')
+                    },
                 ]
             },
             {
