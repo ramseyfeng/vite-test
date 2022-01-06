@@ -1,5 +1,5 @@
 <template>
-  <div>子组件sum: </div>
+  <div>子组件sum: {{sum}}</div>
 </template>
 
 <script lang="ts">
@@ -9,6 +9,7 @@ export default {
   name: "LifeCycleSample",
   props:['sum'],
   setup() {
+    console.log('子组件setup');
     onBeforeMount(() => {
       console.log('---子组件onBeforeMount---')
     })

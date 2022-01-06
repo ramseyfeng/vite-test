@@ -6,10 +6,9 @@
           <span class="text-2xl">Learn vue</span>
         </a>
         <div class="w-full flex-none mt-4 sm:mt-0 sm:w-auto sm:ml-auto flex items-center">
-          <a href="/documentation" class="hover:text-gray-900">
-            <abbr class="sm:hidden" title="Documentation">Docs</abbr>
-            <span class="hidden sm:inline">Documentation</span>
-          </a>
+          <span class="hover:text-gray-900">
+            <el-input v-model="globalVar" placeholder="placeholder"></el-input>
+          </span>
           <a href="/pricing" class="mx-6 hover:text-gray-900">Pricing &amp; <abbr
               title="frequently asked questions">FAQ</abbr></a>
           <div class="group border-l pl-6 border-gray-200 hover:text-teal-600 flex items-center">
@@ -28,10 +27,13 @@
 
 <script>
 import router from "@/router";
+import {inject} from "vue";
 
 export default {
   name: "HeaderMenu",
   setup() {
+
+    const globalVar = inject('myGlobalVariable');
 
     function logout() {
       localStorage.clear();
@@ -39,6 +41,7 @@ export default {
     }
 
     return {
+      globalVar,
       logout
     }
   }

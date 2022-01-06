@@ -29,7 +29,7 @@
     </div>
     <hr class="w-full my-6">
     <button @click="sum++" class="mr-1 bg-yellow-600">sum + 1</button>{{sum}}
-<!--    <LifeCycleSample :sum="sum"></LifeCycleSample>-->
+    <LifeCycleSample :sum="sum"></LifeCycleSample>
     <div>hooks {{ newHooks.length }}</div>
   </div>
 </template>
@@ -59,7 +59,7 @@ export default {
       sum: 0,
       arr: []
     });
-
+    console.log('setup');
     function addSum() {
       state.sum = state.sum + 1;
     }

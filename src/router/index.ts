@@ -33,6 +33,32 @@ const routes: RouteRecordRaw[] = [
                         path: 'life-cycle',
                         component: () => import('@/pages/LifeCyclePage/index.vue')
                     },
+                    {
+                        path: 'params-sample',
+                        component: () => import('@/pages/Params/index.vue')
+                    },
+                    {
+                        path: 'simple-router',
+                        component: () => import('@/pages/SimpleRouter/index.vue'),
+                        children: [
+                            {
+                                path: 'test1',
+                                component: () => import('@/pages/SimpleRouter/pages/Test1/index.vue'),
+                            },
+                            {
+                                path: 'test6',
+                                component: () => import('@/pages/SimpleRouter/pages/Test6/index.vue'),
+                            }
+                        ]
+                    },
+                    {
+                        path: 'hooks-sample',
+                        component: () => import('@/pages/HooksSamplePage/index.vue')
+                    },
+                    {
+                        path: 'global-var',
+                        component: () => import('@/pages/GlobalVar/index.vue')
+                    }
                 ]
             },
             {

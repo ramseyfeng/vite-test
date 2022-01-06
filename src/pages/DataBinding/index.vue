@@ -8,7 +8,7 @@
   <el-input type="text" v-model="welcome"></el-input>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {reactive, ref, toRefs} from "vue";
 
 let plainValue = ref('c');
@@ -16,6 +16,10 @@ let plainValue = ref('c');
 let data = reactive({
   welcome: 'hi'
 });
+
+let refObj = ref({a: {c: 'k'}});
+
+console.log(plainValue)
 
 function updateVal() {
   plainValue.value = plainValue.value + 'a'; //页面中不需要.value

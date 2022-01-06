@@ -8,15 +8,18 @@
       Parent: <input class="border border-solid border-green-600" v-model="customTitle">
     </div>
     <MyComponent v-model:title="customTitle"></MyComponent>
+    <hr>
+    <MyComputedComponent v-model:title="customTitle"></MyComputedComponent>
   </div>
 </template>
 
 <script>
 import MyComponent from "./components/MyComponent";
 import {ref} from "vue";
+import MyComputedComponent from "./components/MyComputedComponent";
 export default {
   name: "VModelPage",
-  components: {MyComponent},
+  components: {MyComputedComponent, MyComponent},
   setup() {
     const customTitle = ref('');
     return {

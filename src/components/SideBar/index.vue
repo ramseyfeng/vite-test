@@ -43,6 +43,22 @@ const menus: MenuItem[] = [
       }, {
         link: routes.knowledge.LIFE_CYCLE,
         label: '生命周期例子'
+      },
+      {
+        link: routes.knowledge.SIMPLE_ROUTER,
+        label: '路由',
+      },
+      {
+        link: routes.knowledge.HOOKS_SAMPLE,
+        label: 'Hooks sample',
+      },
+      {
+        link: routes.knowledge.PARAMS_SAMPLE,
+        label: 'Params sample',
+      },
+      {
+        link: routes.knowledge.GLOBAL_VAR,
+        label: 'Global Var',
       }
     ]
   },

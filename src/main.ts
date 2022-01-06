@@ -1,12 +1,10 @@
-import { createApp } from 'vue'
+import {createApp, ref} from 'vue'
 import App from './App.vue'
 import './styles/index.scss'
 import "element-plus/packages/theme-chalk/src/index.scss";
-import routes from "@/router";
 import router from "@/router";
 
 const app = createApp(App);
-console.log(routes);
 app.use(router)
 app.mount('#app')
 app.directive('font-size', {
@@ -19,3 +17,5 @@ app.directive('focus', {
         el.querySelector('input').focus()
     }
 })
+app.provide('yourImage', ref(sessionStorage.getItem('image')))
+app.provide('myGlobalVariable', ref('a'));
